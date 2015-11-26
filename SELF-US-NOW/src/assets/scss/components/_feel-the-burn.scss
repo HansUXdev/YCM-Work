@@ -1,0 +1,15 @@
+@mixin feel-the-burn($height, $width){
+
+    background: url(http://tympanus.net/codrops-playground/assets/images/posts/23145/fire.gif) center no-repeat;
+    background-size: $height $width;// 150px 150px; 
+    background-color: #000;
+
+    //font-size: 500%;
+    //line-height: 0.7;
+    //text-align: center;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-transition: all 2.5s;
+}

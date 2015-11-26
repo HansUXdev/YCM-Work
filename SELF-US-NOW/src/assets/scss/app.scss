@@ -1,0 +1,288 @@
+@charset 'utf-8';
+
+@import 'settings';
+@import 'foundation';
+@import 'motion-ui';
+
+@include foundation-global-styles;
+
+// GRID
+@include foundation-grid;
+//@include foundation-flex-grid;
+
+@include foundation-typography;
+@include foundation-button;
+@include foundation-forms;
+@include foundation-visibility-classes;
+@include foundation-float-classes;
+@include foundation-accordion;
+@include foundation-badge;
+@include foundation-breadcrumbs;
+@include foundation-button-group;
+@include foundation-callout;
+@include foundation-close-button;
+@include foundation-drilldown-menu;
+@include foundation-dropdown;
+@include foundation-dropdown-menu;
+@include foundation-flex-video;
+@include foundation-label;
+@include foundation-media-object;
+@include foundation-menu;
+@include foundation-off-canvas;
+@include foundation-orbit;
+@include foundation-pagination;
+@include foundation-progress-bar;
+@include foundation-slider;
+@include foundation-sticky;
+@include foundation-reveal;
+@include foundation-switch;
+@include foundation-table;
+@include foundation-tabs;
+@include foundation-thumbnail;
+@include foundation-title-bar;
+@include foundation-tooltip;
+@include foundation-top-bar;
+
+@include motion-ui-transitions;
+@include motion-ui-animations;
+
+/////////////////////////////
+// UTILITY CLASSES AND STUFF
+/////////////////////////////
+	// Color Utility
+		$colors: (	  
+		  primary: #72CEE4,
+		    primary-light: #72CEE4,
+		    primary-dark: #15426d,
+		  secondary: #5a1321,
+		    secondary-light: #8E9BA3,
+		    secondary-dark: #51111e
+		);
+
+		@function color($key) {
+		  @if map-has-key($colors, $key) {
+		    @return map-get($colors, $key);
+		  }
+		  @warn "Unknown `#{$key}` in $colors.";
+		  @return null;
+		}
+
+	// OUR LOGOS
+		.brand-logo{
+			padding-top: 1em;
+		}
+		.footer-brand-logo{
+			height: 3em;
+		}
+
+		.button.ghost{
+			min-width: 130px;
+			background-color: transparent;
+		    border: 1px solid #fff;
+		    &:hover{
+		    	border: 1px solid #000;
+		    	color: #000;
+		    }
+		}
+	// TEXT HELPERS
+		.uppercase {    text-transform: uppercase;}
+		.lowercase {    text-transform: lowercase;}
+		.capitalize {    text-transform: capitalize;}
+		.text-white{ color: #fff;}
+  
+  /////////////////////////////
+		// Make the text white
+  /////////////////////////////
+		.animated-text,
+		.lead,
+		.organization-name{color: #ffffff;}
+  
+  /////////////////////////////
+	// Padding Helper Classes
+  /////////////////////////////
+		$padding-list: 1 2 3 4 5;
+		@each $current-padding in $padding-list {
+		    $i: index($padding-list, $current-padding);
+		    // Padding
+			    .vh-padding-#{$i} { 
+			        padding-top: $current-padding + em !important;
+			        padding-bottom: $current-padding + em !important;
+			    }
+			    .lr-padding-#{$i} { 
+			        padding-left: $current-padding + em !important;
+			        padding-right: $current-padding + em !important;
+			    }
+		    // Margins
+			    .vh-margin-#{$i} { 
+			        margin-top: $current-padding + em !important;
+			        margin-bottom: $current-padding + em !important;
+			    }
+			    .lr-margin-#{$i} { 
+			        margin-left: $current-padding + em !important;
+			        margin-right: $current-padding + em !important;
+			    }
+		}
+
+
+/////////////////////////////
+	// FORMS
+/////////////////////////////
+		.ghost-form{
+		    background-color: transparent;
+	        border: 2px solid #fff;
+	        color: #fff;
+	        &[placeholder="NAME"]{color: #fff;}
+		}
+
+/////////////////////////////
+// Header
+/////////////////////////////
+	.header{
+	    margin: 0;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+		@include breakpoint(small) {
+			background-color: #72CEE4;
+		}
+	}
+	.ready-yet{
+		min-width: 100%;
+		// min-height: 50%;
+		background: color(primary-dark);
+    .client-logos{
+      padding-top: 1em;
+      padding-bottom:1em ;
+    }
+    .StantonLogo{
+      @media only screen and (min-width: 40.063em){
+        padding-top: 3em;
+      }
+      @include breakpoint(medium) {
+        padding-top: 3em;
+      }
+      @include breakpoint(large) {
+        padding-top: 4em;
+      }
+    }
+	}
+	.cta{
+		padding-left: 0;
+		padding-right: 0;
+
+		min-width: 100%;
+		.cta-text{
+			text-align: center;
+			color:#fff;
+		}
+		.cta-left{
+			background: color(primary-light);
+			
+			// padding-left: 0;
+			// padding-right: 0;
+		}
+		.cta-right{
+			background: color(secondary-light);
+		}
+		.container{}
+		.container .flex-columns{
+			@media (max-width:640px) and (min-width:510px) {
+			    flex: initial;
+			    padding-left: 30px;
+			    padding-right: 30px;
+			}
+		}
+	}
+
+/////////////////////////////
+// READY
+/////////////////////////////
+	.client-logos{
+		// min-height: 1em;
+	}
+
+/////////////////////////////
+// Our Partners
+/////////////////////////////
+.our-partners-row{
+  .SUN-Partners{
+    // Small
+      @media only screen and (max-width: 40em) {max-height: 64px; }
+    // Medium
+      @media only screen and (min-width: 40.063em){ max-height: 200px;}
+      // @include breakpoint(medium) { max-height: 300px; }
+  }
+}
+  .partners-title{
+    text-align: center;
+    color: color(primary-light);
+  }
+
+
+/////////////////////////////
+// Footer
+/////////////////////////////
+  footer{
+        background-color: #eee;
+  }
+    .footer-break{
+      border-bottom: 3px solid #000000;
+      margin: 1em 2em 1em 2em;
+    }
+
+
+
+//@import 'components/block-grid';
+@import 'components/flex-grid';
+@import 'components/feel-the-burn';
+
+
+.hide-this{
+  display: none;
+}
+
+
+
+[type="text"]:focus, [type="password"]:focus, [type="date"]:focus, [type="datetime"]:focus, [type="datetime-local"]:focus, [type="month"]:focus, [type="week"]:focus, [type="email"]:focus, [type="number"]:focus, [type="search"]:focus, [type="tel"]:focus, [type="time"]:focus, [type="url"]:focus, [type="color"]:focus, textarea:focus {
+  color: #000;
+}
+
+
+.reveal{ 
+  -webkit-transition: all 0.6s;
+          transition: all 0.6s;
+}
+
+
+.reveal.revealed#bernie-video{
+    // min-width: 100%;
+    // top: 31em !important;
+    // height: 497px;
+    .header-container{
+      // background-color: ;//#15426d;
+
+      padding: 0;
+      margin-top: -16px;
+      margin-bottom: 1px;
+
+      .benie-header{
+        // padding-bottom: 55px;
+        // For those willing to feel the burn...
+        span{
+          @include feel-the-burn(150px, 150px);
+        }
+      }
+    
+    }
+
+}
+
+
+.footer-row{
+  margin-left: 0px;
+  margin-right: 0px;
+  min-width: 100%;
+}
+
+
+
+

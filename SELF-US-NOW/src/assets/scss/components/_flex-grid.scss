@@ -1,0 +1,164 @@
+
+///////////////// 
+//FLEX-GRID
+/////////////////
+
+  @mixin flex-grid-row(
+    $behavior: null,
+    $width: $grid-row-width,
+    $columns: null,
+    $base: true
+  ) {
+    $behavior: -zf-get-options($behavior, nest collapse);
+    $margin: auto;
+
+    @if map-get($behavior, nest) {
+      $margin: -$grid-column-gutter;
+    }
+    @else {
+      max-width: $width;
+    }
+
+    @if $base {
+      display: flex;
+      flex-flow: row wrap;
+    }
+
+    margin-left: $margin;
+    margin-right: $margin;
+
+    @if $columns != null {
+      @include grid-context($columns, $root) {
+        @content;
+      }
+    }
+  }
+  @function flex-grid-column($columns: null) {
+    $flex: 1 1 0px;
+    @if $columns == shrink {
+      $flex: 0 0 auto;
+    }
+    @else if $columns != null {
+      $flex: 0 0 grid-column($columns);
+    }
+    @return $flex;
+  }
+  @mixin flex-grid-column(
+    $columns: null,
+    $gutter: $grid-column-gutter
+  ) {
+    flex: flex-grid-column($columns);
+    padding-left: $gutter;
+    padding-right: $gutter;
+
+    // max-width fixes IE 10/11 not respecting the flex-basis property
+    @if $columns != null and $columns != shrink {
+      max-width: grid-column($columns);
+    }
+  }
+
+  @mixin foundation-flex-grid {
+    // Row
+    .flex-row {
+      @include flex-grid-row;
+
+      // Nesting behavior
+      & &,
+      .flex-column-row & {
+        @include flex-grid-row(nest, $base: false);
+      }
+    }
+
+    // Column
+    %flex-column {
+      @include flex-grid-column;
+    }
+
+    .flex-column,
+    .flex-columns {
+      @extend %flex-column;
+    }
+
+    // Sizing (percentage)
+    @each $size in $breakpoint-classes {
+      @include breakpoint($size) {
+        @for $i from 1 through $grid-column-count {
+          .flex-#{$size}-#{$i} {
+            flex: flex-grid-column($i);
+            max-width: grid-column($i);
+          }
+        }
+      }
+    }
+
+    // Sizing (expand)
+    @each $size in $breakpoint-classes {
+      @if $size != small {
+        @include breakpoint($size) {
+          .flex-#{$size}-expand {
+            flex: flex-grid-column();
+          }
+        }
+      }
+    }
+
+    // Sizing (shrink)
+    .flex-shrink {
+      flex: flex-grid-column(shrink);
+    }
+
+    // Auto-stacking/unstacking
+    @each $size in $breakpoint-classes {
+      @if $size != small {
+        .flex-row.#{$size}-unstack {
+          .flex-column {
+            flex: flex-grid-column(100%);
+
+            @include breakpoint($size) {
+              flex: flex-grid-column();
+            }
+          }
+        }
+      }
+    }
+
+    // Source ordering
+    @each $size in $breakpoint-classes {
+      @include breakpoint($size) {
+        @for $i from 1 through 6 {
+          .flex-#{$size}-order-#{$i} {
+            order: $i;
+          }
+        }
+      }
+    }
+
+    // Horizontal alignment using justify-content
+    @each $hdir, $prop in (
+      'right': flex-end,
+      'center': center,
+      'justify': space-between,
+      'spaced': space-around,
+    ) {
+      .flex-row.flex-align-#{$hdir} {
+        justify-content: $prop;
+      }
+    }
+
+    // Horizontal alignment using align-items and align-self
+    @each $vdir, $prop in (
+      'top': flex-start,
+      'bottom': flex-end,
+      'middle': center,
+      'stretch': stretch,
+    ) {
+      .flex-row.flex-align-#{$vdir} {
+        align-items: $prop;
+      }
+
+      .flex-column.flex-align-#{$vdir} {
+        align-self: $prop;
+      }
+    }
+  }
+  @include foundation-flex-grid;

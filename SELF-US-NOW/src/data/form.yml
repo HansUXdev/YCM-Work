@@ -1,0 +1,3 @@
+  - request_email: '{{ request.current_signup.name_or_email }}'
+  - request_logout: '{{ request.current_signup.logout_url }}'
+  - page_instructions: '{{ page.text_keyword_instructions }}'

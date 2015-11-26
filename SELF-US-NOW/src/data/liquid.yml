@@ -1,0 +1,8 @@
+  - header: '{{ content_for_header }}'
+  - footer: '{{ content_for_footer }}'
+  - RequestSignup: '{{ request.current_signup.settings_url }}'
+  - RequestCurrent_signupProfile_url: '{{ request.current_signup.profile_url }}'
+  - AccountSettings: '{{ request.current_signup.settings_url }}'
+  - LogOut: '{{ request.current_signup.logout_url }}'
+  - siteMapLoopURL: '{{ child.url }}'
+  - siteMapLoopNAME: '{{ child.name }}'

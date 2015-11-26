@@ -1,0 +1,41 @@
+{{!-- This is the base layout for your project, and will be used on every page. --}}
+
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{title}}</title>
+
+    <link rel="stylesheet" href="app.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">
+    <!-- 
+    {{#each liquid}}{{header}}{{/each}}
+     -->
+  </head>
+  <body>
+
+<!-- 
+NOTES:
+
+Please keep in mind the design decisions are not my own. 
+I do not agree with all the use of capitalized text, weird commas, etc...
+I'm just doing my job....
+
+Please for the love of web design tweet at us if you have better design input. 
+-->
+
+    {{!-- Pages you create in the src/pages/ folder are inserted here when the flattened page is created. --}}
+
+    {{> body}}
+
+    <script src="app.js"></script>
+
+    <!-- 
+     {{#each liquid}} {{footer}}{{/each}}
+     -->
+  </body>
+</html>

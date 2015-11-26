@@ -1,0 +1,68 @@
+
+<form data-abide>
+  <!-- ERROR -->
+  <div data-abide-error class="alert callout" style="display: none;">
+    <p><i class="fi-alert"></i> There are some errors in your form.</p>
+  </div>
+  <!-- ERROR -->
+ {% form_for signup %}
+   {% if request.sorta_logged_in? %}
+     <div class="padtopmore text-content">
+        <h4>Hi {{#each form}}{{request_email}}{{/each}}, thanks for joining!</h4>
+     </div>
+
+     {% if request.logged_in? == false %}
+     <div class="padtop text-content">
+        If you're not {{#each form}}{{request_email}}{{/each}}, 
+        <a href="{{#each form}} {{request_logout}} {{/each}}">click here to signup</a>.
+     </div>
+     {% endif %}
+   {% endif %}
+   <div class="form_errors">{% error_messages_for signup %}</div>
+      {% if request.sorta_logged_in? == false or request.current_signup.has_name? == false %}
+             <!--  <label for="signup_first_name">First Name</label>
+              <br> -->
+              {% text_field "first_name", class:"text ghost-form" placeholder="NAME"%}
+              <!-- <label for="signup_last_name">Last Name</label>
+              <br> -->
+              {% text_field "last_name", class:"text ghost-form" %}
+      {% endif %}
+      {% if request.sorta_logged_in? == false or request.current_signup.has_mobile? == false %}
+            <!-- <label for="signup_email">Email</label>
+            <br> -->
+            {% email_field "email", class:"text ghost-form" %}
+         {% if site.ask_for_mobiles? %}
+          <!-- <label for="signup_mobile_number">Mobile phone</label> -->
+            <!-- <br> -->
+            {% phone_field "mobile_number", class:"text ghost-form" %}
+         {% endif %}
+        <div class="hide-this">
+            <!-- <label for="signup_email_opt_in"> -->
+              {% check_box "email_opt_in", class:"checkbox" %} 
+              Send me email updates
+            <!-- </label> -->
+         {% if site.ask_for_mobiles? %}
+            <!-- <label for="signup_mobile_opt_in"> -->
+              {% check_box "mobile_opt_in", class:"checkbox" %} 
+              
+            <!-- </label> -->
+         {% endif %}
+        </div>
+      {% endif %}
+<div class="hide-this">
+  
+   {% if page.signup.is_all_info_collected? == false %}
+     {% if request.sorta_logged_in? %}
+        {% submit_tag "Update info", class:"submit-button" %}
+     {% else %}
+        {% submit_tag "Signup", class:"submit-button" %}
+     {% endif %}
+   {% endif %}
+</div>
+
+   <div class="form_submit"></div>
+
+      <input class="button large expanded submit-button" type="submit" name="commit" value="Submit">
+  </ul>
+ {% endform_for %}
+</form>
